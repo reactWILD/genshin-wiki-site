@@ -2,6 +2,7 @@ import { Box, Flex, Text } from "@chakra-ui/react"
 import { NextPage } from "next"
 import AppHeader from "../../components/AppHeader"
 import ListCharacters from "../../components/ListCharacters"
+import api from "../../service/api"
 import { Character } from "../../types/Character"
 
 interface Props {
@@ -48,17 +49,15 @@ const CharactersPage: NextPage<Props> = ({
 
 CharactersPage.getInitialProps = async () => {
   async function getElementData() {
-    const response = await fetch("http://localhost:3333/elements")
-    const data = await response.json()
+    const response = await api.get("/elements")
 
-    return data
+    return response.data
   }
 
   async function getCharactersData() {
-    const response = await fetch("http://localhost:3333/characters")
-    const data = await response.json()
+    const response = await api.get("/characters")
 
-    return data
+    return response.data
   }
 
   return {
